@@ -11,7 +11,7 @@ import {
 import {makeLearningReport} from "../shared/experience.mjs";
 
 export const WORD_WEAVER_APP_ID = "word-weaver";
-export const WORD_WEAVER_CONTENT_VERSION = "word-weaver-core-1";
+export const WORD_WEAVER_CONTENT_VERSION = "word-weaver-core-2";
 export const LEXICON = Object.freeze([
   {spelling: "planet", definition: "A large body that travels around a star."},
   {spelling: "journey", definition: "A trip from one place to another."},
