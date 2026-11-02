@@ -26,6 +26,15 @@ test("place, return, and hint cannot duplicate or overwrite tiles", () => {
   assert.throws(() => session.place(session.tiles.find(value => value.id !== session.tiles[1].id).id, hint.slot));
 });
 
+test("the current word exposes its definition and report state", () => {
+  const session = new WordWeaverSession("definition");
+  assert.equal(typeof session.currentDefinition, "string");
+  assert.ok(session.currentDefinition.length > 0);
+  const report = session.report;
+  assert.equal(report.remaining, 8);
+  assert.equal(report.details.wordsSolved, 0);
+});
+
 test("wrong submissions locate the first mismatch and restore placements", () => {
   const session = new WordWeaverSession("mistake");
   const wrongSlot = session.word.length - 1;
@@ -80,6 +89,9 @@ test("malformed placements, revealed letters, and unknown words are rejected", (
     value => { value.payload.slots[0] = "missing"; },
     value => { value.payload.revealed[0] = "z"; },
     value => { value.payload.index = 8; },
+    value => { value.payload.attempts = -1; },
+    value => { value.payload.firstTry = 9; },
+    value => { value.payload.wordAttempts = -1; },
   ]) {
     const broken = structuredClone(valid);
     mutate(broken);

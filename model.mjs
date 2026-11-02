@@ -8,6 +8,7 @@ import {
   plainObject,
   string,
 } from "../shared/core.mjs";
+import {makeLearningReport} from "../shared/experience.mjs";
 
 export const WORD_WEAVER_APP_ID = "word-weaver";
 export const WORD_WEAVER_CONTENT_VERSION = "word-weaver-core-1";
@@ -53,6 +54,9 @@ export class WordWeaverSession {
       revealed: [],
       hintsUsed: 0,
       mistakes: 0,
+      attempts: 0,
+      firstTry: 0,
+      wordAttempts: 0,
       score: 0,
       stars: 0,
     };
@@ -72,6 +76,10 @@ export class WordWeaverSession {
 
   get word() {
     return this.#state.index < this.#state.words.length ? this.#state.words[this.#state.index].spelling : null;
+  }
+
+  get currentDefinition() {
+    return this.#state.index < this.#state.words.length ? this.#state.words[this.#state.index].definition : null;
   }
 
   get tiles() {
@@ -96,6 +104,26 @@ export class WordWeaverSession {
 
   get state() {
     return clone(this.#state);
+  }
+
+  get report() {
+    return makeLearningReport({
+      appId: WORD_WEAVER_APP_ID,
+      audience: "grade-3-4",
+      phase: this.#state.phase,
+      stars: this.#state.stars,
+      score: this.#state.score,
+      firstTry: this.#state.firstTry,
+      attempts: this.#state.attempts,
+      hintsUsed: this.#state.hintsUsed,
+      remaining: this.#state.words.length - this.#state.index,
+      objectives: ["Spell grade-appropriate words with decoding hints and definitions."],
+      details: {
+        wordsSolved: this.#state.index,
+        mistakes: this.#state.mistakes,
+        hintsUsed: this.#state.hintsUsed,
+      },
+    });
   }
 
   place(tileId, slot) {
@@ -131,6 +159,7 @@ export class WordWeaverSession {
 
   submit() {
     if (this.#state.phase !== "solve") throw Error("The word session is complete.");
+    this.#state.attempts++;
     const target = this.word;
     const attempt = target.split("").map((_, slot) => {
       if (this.#state.revealed[slot] !== null) return this.#state.revealed[slot];
@@ -140,6 +169,7 @@ export class WordWeaverSession {
     if (attempt.some(letter => letter === null)) throw Error("Fill every slot before submitting.");
     const mismatch = attempt.findIndex((letter, index) => letter !== target[index]);
     if (mismatch >= 0) {
+      this.#state.wordAttempts++;
       this.#state.mistakes++;
       this.#state.wordMistakes++;
       this.#state.score = Math.max(0, this.#state.score - 5);
@@ -149,6 +179,7 @@ export class WordWeaverSession {
     }
 
     const reward = Math.max(2, 20 - this.#state.wordHints * 5 - this.#state.wordMistakes * 2);
+    if (this.#state.wordAttempts === 0) this.#state.firstTry++;
     this.#state.score += reward;
     this.#state.index++;
     if (this.#state.index === this.#state.words.length) {
@@ -182,6 +213,7 @@ function startWord(state, rng) {
   state.revealed = Array(target.length).fill(null);
   state.wordHints = 0;
   state.wordMistakes = 0;
+  state.wordAttempts = 0;
 }
 
 function lexiconWord(value) {
@@ -190,13 +222,15 @@ function lexiconWord(value) {
 
 function validatePayload(state) {
   if (!exactKeys(state, ["version", "seed", "rngState", "phase", "words", "index", "tiles", "slots", "revealed",
-    "hintsUsed", "mistakes", "score", "stars", "wordHints", "wordMistakes"]) ||
+    "hintsUsed", "mistakes", "attempts", "firstTry", "wordAttempts", "score", "stars", "wordHints", "wordMistakes"]) ||
     state.version !== WORD_WEAVER_CONTENT_VERSION || typeof state.seed !== "string" ||
     !integer(state.rngState, 0, 0xffffffff) || !["solve", "done"].includes(state.phase) ||
     !Array.isArray(state.words) || state.words.length !== WORDS_PER_SESSION ||
     !state.words.every(word => exactKeys(word, ["spelling", "definition"]) && lexiconWord(word)) ||
     new Set(state.words.map(word => word.spelling)).size !== state.words.length ||
     !integer(state.index, 0, WORDS_PER_SESSION) || !integer(state.hintsUsed, 0, 1000) ||
+    !integer(state.attempts, 0, 10000) || !integer(state.firstTry, 0, WORDS_PER_SESSION) ||
+    !integer(state.wordAttempts, 0, 1000) ||
     !integer(state.mistakes, 0, 10000) || !integer(state.score, 0, 100000) || !integer(state.stars, 0, 3) ||
     !integer(state.wordHints, 0, 1000) || !integer(state.wordMistakes, 0, 1000)) {
     throw Error("Invalid Word Weaver snapshot.");
