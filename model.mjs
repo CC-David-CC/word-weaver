@@ -78,6 +78,10 @@ export class WordWeaverSession {
     return this.#state.index < this.#state.words.length ? this.#state.words[this.#state.index].spelling : null;
   }
 
+  get currentDefinition() {
+    return this.#state.index < this.#state.words.length ? this.#state.words[this.#state.index].definition : null;
+  }
+
   get tiles() {
     return clone(this.#state.tiles);
   }
