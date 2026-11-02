@@ -105,6 +105,7 @@ export class WordWeaverSession {
     if (!tile) throw Error("Unknown tile.");
     if (tile.placedAt !== null) throw Error("Tile is already placed.");
     if (this.#state.slots[slot] !== null) throw Error("Slot is occupied.");
+    if (this.#state.revealed[slot] !== null) throw Error("Slot was revealed by a hint.");
     tile.placedAt = slot;
     this.#state.slots[slot] = tile.id;
   }

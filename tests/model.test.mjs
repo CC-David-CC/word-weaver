@@ -23,6 +23,7 @@ test("place, return, and hint cannot duplicate or overwrite tiles", () => {
   session.place(session.tiles[1].id, 0);
   const hint = session.hint();
   assert.equal(hint.letter, session.word[hint.slot]);
+  assert.throws(() => session.place(session.tiles.find(value => value.id !== session.tiles[1].id).id, hint.slot));
 });
 
 test("wrong submissions locate the first mismatch and restore placements", () => {
