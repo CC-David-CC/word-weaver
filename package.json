@@ -1,0 +1,13 @@
+{
+  "name": "@webos/word-weaver",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": "./model.mjs",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "@webos/learning-game-core": "0.1.0"
+  }
+}

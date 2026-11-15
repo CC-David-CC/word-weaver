@@ -7,8 +7,8 @@ import {
   integer,
   plainObject,
   string,
-} from "../shared/core.mjs";
-import {makeLearningReport} from "../shared/experience.mjs";
+} from "@webos/learning-game-core/core";
+import {makeLearningReport} from "@webos/learning-game-core/experience";
 
 export const WORD_WEAVER_APP_ID = "word-weaver";
 export const WORD_WEAVER_CONTENT_VERSION = "word-weaver-core-2";
