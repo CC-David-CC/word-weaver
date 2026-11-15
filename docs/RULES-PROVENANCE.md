@@ -1,0 +1,3 @@
+# Original core rules
+
+CORE-RULES.md preserves the original word-weaver rule-design source and selected history without changes. It accompanies this independently owned game model. It is historical design evidence, not a statement that every rule matches the current model or that a browser game exists. Compare operation/error/state semantics before functional changes. Rendering, assets, input, lifecycle, account saves and authorized agent operations remain separate gates. Shared cross-game integration plans are retained by the parent under migration/legacy-game-design/. Current WebOS AGENTS and user decisions supersede historical instructions.
