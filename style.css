@@ -1,0 +1,269 @@
+:root {
+  --weaver-bg: #f9fbe7;
+  --weaver-card-bg: #ffffff;
+  --weaver-border: #dce775;
+  --weaver-text: #33691e;
+  --weaver-accent: #689f38;
+  --weaver-accent-light: #f1f8e9;
+  --weaver-touch-target: 44px;
+}
+
+.word-weaver-app {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: var(--weaver-bg);
+  color: var(--weaver-text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+  padding: 12px;
+  gap: 12px;
+  overflow: auto;
+}
+
+.weaver-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--weaver-border);
+}
+
+.weaver-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--weaver-accent);
+}
+
+.weaver-stats {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.weaver-badge {
+  background: #ffffff;
+  border: 1px solid var(--weaver-border);
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.weaver-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 12px;
+  min-height: 0;
+}
+
+.weaver-card {
+  background: var(--weaver-card-bg);
+  border: 1px solid var(--weaver-border);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.clue-title {
+  margin-top: 0;
+  font-size: 1rem;
+  color: var(--weaver-accent);
+}
+
+.clue-text {
+  font-size: 1.1rem;
+  line-height: 1.4;
+  margin-bottom: 0;
+}
+
+.weaver-slots-section {
+  display: flex;
+  justify-content: center;
+  padding: 12px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid var(--weaver-border);
+}
+
+.weaver-slots-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.weaver-slot {
+  width: 52px;
+  height: 56px;
+  border: 2px dashed #9e9d24;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: #fafafa;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.weaver-slot.slot-filled {
+  background: #f0f4c3;
+  border: 2px solid #827717;
+  color: #33691e;
+}
+
+.weaver-slot.slot-revealed {
+  background: #c8e6c9;
+  border: 2px solid #2e7d32;
+  color: #1b5e20;
+}
+
+.weaver-tiles-section {
+  display: flex;
+  justify-content: center;
+  padding: 12px;
+  background: var(--weaver-accent-light);
+  border-radius: 12px;
+  border: 1px solid var(--weaver-border);
+}
+
+.weaver-tiles-pool {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.weaver-tile {
+  min-width: 48px;
+  height: 52px;
+  background: #ffffff;
+  border: 2px solid var(--weaver-accent);
+  border-radius: 8px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--weaver-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.15s ease;
+}
+
+.weaver-tile:hover {
+  transform: translateY(-2px);
+  background: #fff9c4;
+}
+
+.weaver-tile.tile-placed {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.weaver-tile.tile-selected {
+  outline: 3px solid #ffb300;
+  transform: scale(1.08);
+}
+
+.weaver-controls {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.weaver-btn {
+  min-height: var(--weaver-touch-target);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-size: 0.95rem;
+}
+
+.weaver-btn-primary {
+  background: var(--weaver-accent);
+  color: white;
+}
+
+.weaver-btn-secondary {
+  background: #dce775;
+  color: var(--weaver-text);
+}
+
+.weaver-btn-outline {
+  background: transparent;
+  color: var(--weaver-text);
+  border: 1px solid #c0ca33;
+}
+
+/* Tier 1: Phone (< 768px) */
+@media (max-width: 768px) {
+  .word-weaver-app {
+    padding: 8px;
+    gap: 8px;
+  }
+  .weaver-slot {
+    width: 44px;
+    height: 48px;
+    font-size: 1.25rem;
+  }
+  .weaver-tile {
+    min-width: 42px;
+    height: 46px;
+    font-size: 1.2rem;
+  }
+}
+
+/* Tier 2: 1080p Desktop (1024px to 2559px) */
+@media (min-width: 1024px) and (max-width: 2559px) {
+  .weaver-slots-section {
+    padding: 24px;
+  }
+  .weaver-slot {
+    width: 64px;
+    height: 68px;
+    font-size: 1.8rem;
+  }
+  .weaver-tile {
+    min-width: 56px;
+    height: 60px;
+    font-size: 1.6rem;
+  }
+}
+
+/* Tier 3: 4K UHD (>= 2560px) */
+@media (min-width: 2560px) {
+  :root {
+    --weaver-touch-target: 56px;
+  }
+  .word-weaver-app {
+    padding: 24px;
+    gap: 20px;
+    font-size: 1.3rem;
+  }
+  .weaver-title {
+    font-size: 2rem;
+  }
+  .clue-text {
+    font-size: 1.5rem;
+  }
+  .weaver-slot {
+    width: 88px;
+    height: 94px;
+    font-size: 2.5rem;
+  }
+  .weaver-tile {
+    min-width: 80px;
+    height: 86px;
+    font-size: 2.2rem;
+  }
+}

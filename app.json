@@ -1,0 +1,15 @@
+{
+  "id": "word-weaver",
+  "name": "Word Weaver",
+  "category": "Games",
+  "version": "0.1.0",
+  "description": "Spell, decode, and weave vocabulary words using letter tiles, contextual definitions, and phonetic hints across 8 challenges.",
+  "entry": "index.mjs",
+  "window": {
+    "title": "Word Weaver",
+    "width": 880,
+    "height": 620,
+    "minWidth": 360,
+    "minHeight": 420
+  }
+}
