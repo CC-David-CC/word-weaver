@@ -10,4 +10,4 @@ The release candidate opened from Games → Learning & Strategy. The browser che
 
 Run the native suite in the WebOS npm workspace with `node --test tests/*.test.mjs` from this directory.
 
-Use **Game files → Save** to keep a round as `.word-weaver.json`. Open that file from WebOS Files to continue playing. Anon games stay in the browser until you register an account.
+Use **Game files → Save** to keep a round as `.word-weaver.json`. Open that file from WebOS Files to continue playing. Anon files last for this browser tab. Register before leaving to keep them in your account.
