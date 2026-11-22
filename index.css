@@ -205,65 +205,65 @@
   border: 1px solid #c0ca33;
 }
 
-/* Tier 1: Phone (< 768px) */
-@media (max-width: 768px) {
-  .word-weaver-app {
-    padding: 8px;
-    gap: 8px;
-  }
-  .weaver-slot {
-    width: 44px;
-    height: 48px;
-    font-size: 1.25rem;
-  }
-  .weaver-tile {
-    min-width: 42px;
-    height: 46px;
-    font-size: 1.2rem;
-  }
+.word-weaver-app[data-tier="phone"] {
+  padding: 8px;
+  gap: 8px;
 }
 
-/* Tier 2: 1080p Desktop (1024px to 2559px) */
-@media (min-width: 1024px) and (max-width: 2559px) {
-  .weaver-slots-section {
-    padding: 24px;
-  }
-  .weaver-slot {
-    width: 64px;
-    height: 68px;
-    font-size: 1.8rem;
-  }
-  .weaver-tile {
-    min-width: 56px;
-    height: 60px;
-    font-size: 1.6rem;
-  }
+.word-weaver-app[data-tier="phone"] .weaver-slot {
+  width: 44px;
+  height: 48px;
+  font-size: 1.25rem;
 }
 
-/* Tier 3: 4K UHD (>= 2560px) */
-@media (min-width: 2560px) {
-  :root {
-    --weaver-touch-target: 56px;
-  }
-  .word-weaver-app {
-    padding: 24px;
-    gap: 20px;
-    font-size: 1.3rem;
-  }
-  .weaver-title {
-    font-size: 2rem;
-  }
-  .clue-text {
-    font-size: 1.5rem;
-  }
-  .weaver-slot {
-    width: 88px;
-    height: 94px;
-    font-size: 2.5rem;
-  }
-  .weaver-tile {
-    min-width: 80px;
-    height: 86px;
-    font-size: 2.2rem;
-  }
+.word-weaver-app[data-tier="phone"] .weaver-tile {
+  min-width: 42px;
+  height: 46px;
+  font-size: 1.2rem;
+}
+
+.word-weaver-app[data-tier="desktop"] .weaver-slots-section {
+  padding: 24px;
+}
+
+.word-weaver-app[data-tier="desktop"] .weaver-slot {
+  width: 64px;
+  height: 68px;
+  font-size: 1.8rem;
+}
+
+.word-weaver-app[data-tier="desktop"] .weaver-tile {
+  min-width: 56px;
+  height: 60px;
+  font-size: 1.6rem;
+}
+
+.word-weaver-app[data-tier="4k"] {
+  --weaver-touch-target: 56px;
+}
+
+.word-weaver-app[data-tier="4k"] {
+  padding: 24px;
+  gap: 20px;
+  font-size: 1.3rem;
+}
+
+.word-weaver-app[data-tier="4k"] .weaver-title {
+  font-size: 2rem;
+}
+
+.word-weaver-app[data-tier="4k"] .clue-text {
+  font-size: 1.5rem;
+}
+
+.word-weaver-app[data-tier="4k"] .weaver-slot {
+  width: 88px;
+  height: 94px;
+  font-size: 2.5rem;
+}
+
+.word-weaver-app[data-tier="4k"] .weaver-tile {
+  min-width: 80px;
+  height: 86px;
+  font-size: 2.2rem;
 }

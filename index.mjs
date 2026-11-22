@@ -211,9 +211,9 @@ export function mount(host, options = {}) {
   render();
 
   if (typeof ResizeObserver !== 'undefined' && root.getBoundingClientRect) {
-    resizeObserver = new ResizeObserver(() => {
-      const rect = root.getBoundingClientRect();
-      const layout = computeLayout(rect.width, rect.height);
+    resizeObserver = new ResizeObserver(([entry]) => {
+      const {width, height} = entry.contentRect;
+      const layout = computeLayout(width, height);
       if (root.dataset) root.dataset.tier = layout.tier;
     });
     resizeObserver.observe(root);
