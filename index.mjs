@@ -28,7 +28,7 @@ function createElement(host, tag, className, text) {
 }
 
 export function mount(host, options = {}) {
-  const root = createElement(host, 'div', 'word-weaver-app');
+  const root = createElement(host, 'div', 'window-content word-weaver-app');
 
   let session = new WordWeaverSession(`weaver-${Date.now()}`);
   let selectedTileId = null;

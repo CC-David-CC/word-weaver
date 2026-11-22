@@ -11,5 +11,8 @@
     "height": 620,
     "minWidth": 360,
     "minHeight": 420
-  }
+  },
+  "assets": [
+    "index.css"
+  ]
 }
