@@ -1,3 +1,4 @@
+import {connectGameFiles} from '@webos/learning-game-core/workspace';
 import {WordWeaverSession} from './model.mjs';
 import {computeLayout} from './layout.mjs';
 
@@ -208,6 +209,18 @@ export function mount(host, options = {}) {
     renderTiles();
   }
 
+  const files = connectGameFiles(host, {
+    header,
+    id: 'word-weaver',
+    title: 'Word Weaver',
+    serialize: () => session.encodeSave(),
+    restore(snapshot) {
+      session = WordWeaverSession.fromSave(snapshot);
+      selectedTileId = null;
+      render();
+    },
+  });
+
   render();
 
   if (typeof ResizeObserver !== 'undefined' && root.getBoundingClientRect) {
@@ -221,8 +234,11 @@ export function mount(host, options = {}) {
 
   return {
     element: root,
-    session,
+    get session() { return session; },
+    ready: files.ready,
+    requestClose: files.requestClose,
     dispose() {
+      files.dispose?.();
       disposed = true;
       resizeObserver?.disconnect();
       resizeObserver = null;
